@@ -1,0 +1,1092 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Do Hoanh Thong — Unity Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #0a0d14;
+            --bg2: #111520;
+            --card: #151b28;
+            --border: #1e2840;
+            --accent: #4fffb0;
+            --accent2: #7b61ff;
+            --accent3: #ff6b6b;
+            --text: #e8eaf0;
+            --muted: #6b7591;
+            --font-display: 'Syne', sans-serif;
+            --font-body: 'Space Grotesk', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font-body);
+            font-size: 16px;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+            body::before {
+                content: '';
+                position: fixed;
+                inset: 0;
+                background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+                pointer-events: none;
+                z-index: 0;
+                opacity: 0.4;
+            }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10,13,20,0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-logo {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--accent);
+            letter-spacing: 0.05em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+            .nav-links a {
+                color: var(--muted);
+                text-decoration: none;
+                font-size: 0.85rem;
+                font-weight: 500;
+                letter-spacing: 0.05em;
+                text-transform: uppercase;
+                transition: color 0.2s;
+            }
+
+                .nav-links a:hover {
+                    color: var(--accent);
+                }
+
+        /* ── HERO ── */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 6rem 2rem 4rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-eyebrow {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--accent);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+            .hero-eyebrow::before {
+                content: '';
+                display: inline-block;
+                width: 2rem;
+                height: 1px;
+                background: var(--accent);
+            }
+
+        .hero-name {
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 8vw, 6.5rem);
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+        }
+
+            .hero-name .highlight {
+                background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+
+        .hero-title {
+            font-family: var(--font-mono);
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            color: var(--muted);
+            margin-bottom: 2rem;
+            font-weight: 400;
+        }
+
+        .hero-desc {
+            max-width: 560px;
+            color: #a0a8c0;
+            font-size: 1.05rem;
+            line-height: 1.75;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.75rem;
+            border-radius: 6px;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #0a0d14;
+        }
+
+            .btn-primary:hover {
+                background: #6effc0;
+                transform: translateY(-2px);
+                box-shadow: 0 8px 24px rgba(79,255,176,0.25);
+            }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+            .btn-outline:hover {
+                border-color: var(--accent);
+                color: var(--accent);
+                transform: translateY(-2px);
+            }
+
+        .hero-stats {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .stat-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.25rem 1.5rem;
+            text-align: center;
+            min-width: 130px;
+            animation: float 4s ease-in-out infinite;
+        }
+
+            .stat-card:nth-child(2) {
+                animation-delay: -1.3s;
+            }
+
+            .stat-card:nth-child(3) {
+                animation-delay: -2.6s;
+            }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        .stat-number {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--accent);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--muted);
+            margin-top: 0.25rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        /* ── SECTIONS ── */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--accent);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 800;
+            margin-bottom: 3rem;
+            line-height: 1.1;
+        }
+
+        /* ── SKILLS ── */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .skill-group {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+
+            .skill-group:hover {
+                border-color: var(--accent2);
+                transform: translateY(-3px);
+            }
+
+        .skill-group-title {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--accent2);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+            .skill-group-title::before {
+                content: '';
+                width: 6px;
+                height: 6px;
+                background: var(--accent2);
+                border-radius: 50%;
+            }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            background: rgba(123,97,255,0.1);
+            border: 1px solid rgba(123,97,255,0.2);
+            color: #c4b8ff;
+            padding: 0.3rem 0.7rem;
+            border-radius: 4px;
+            font-size: 0.78rem;
+            font-weight: 500;
+            font-family: var(--font-mono);
+        }
+
+        /* ── PROJECTS ── */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 1.75rem;
+        }
+
+        .project-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+        }
+
+            .project-card:hover {
+                border-color: var(--accent);
+                transform: translateY(-5px);
+                box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 0 1px rgba(79,255,176,0.1);
+            }
+
+        /* video embed */
+        .project-video {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 */
+            background: #05070b;
+            border-bottom: 1px solid var(--border);
+        }
+
+            .project-video iframe {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                border: none;
+            }
+
+        .video-placeholder {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            color: var(--muted);
+            background: repeating-linear-gradient(45deg, #0d1119, #0d1119 10px, #0f131c 10px, #0f131c 20px);
+        }
+
+            .video-placeholder .ph-icon {
+                font-size: 2rem;
+                opacity: 0.5;
+            }
+
+            .video-placeholder .ph-text {
+                font-family: var(--font-mono);
+                font-size: 0.72rem;
+                letter-spacing: 0.05em;
+                text-align: center;
+                padding: 0 1.5rem;
+            }
+
+        .project-header {
+            padding: 1.5rem 1.5rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .project-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+        }
+
+        .project-badge {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+        }
+
+        .badge-live {
+            background: rgba(79,255,176,0.1);
+            color: var(--accent);
+            border: 1px solid rgba(79,255,176,0.3);
+        }
+
+        .badge-online {
+            background: rgba(123,97,255,0.1);
+            color: #a08fff;
+            border: 1px solid rgba(123,97,255,0.3);
+        }
+
+        .project-body {
+            padding: 1rem 1.5rem 1.5rem;
+        }
+
+        .project-name {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+        }
+
+        .project-period {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            color: var(--muted);
+            margin-bottom: 0.85rem;
+        }
+
+        .project-desc {
+            font-size: 0.88rem;
+            color: #8892aa;
+            line-height: 1.65;
+            margin-bottom: 1rem;
+        }
+
+        .project-highlights {
+            list-style: none;
+            margin-bottom: 1.25rem;
+        }
+
+            .project-highlights li {
+                font-size: 0.82rem;
+                color: #a0a8c0;
+                padding: 0.2rem 0;
+                padding-left: 1rem;
+                position: relative;
+            }
+
+                .project-highlights li::before {
+                    content: '▸';
+                    position: absolute;
+                    left: 0;
+                    color: var(--accent);
+                    font-size: 0.7rem;
+                }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .tech-tag {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--border);
+            color: var(--muted);
+            padding: 0.2rem 0.55rem;
+            border-radius: 4px;
+            font-size: 0.72rem;
+            font-family: var(--font-mono);
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: var(--accent);
+            font-size: 0.82rem;
+            font-weight: 600;
+            text-decoration: none;
+            font-family: var(--font-mono);
+            transition: gap 0.2s;
+        }
+
+            .project-link:hover {
+                gap: 0.7rem;
+            }
+
+        /* ── EXPERIENCE ── */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+            .timeline::before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                width: 1px;
+                background: linear-gradient(to bottom, var(--accent), var(--accent2), transparent);
+            }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            padding-left: 1.5rem;
+        }
+
+            .timeline-item::before {
+                content: '';
+                position: absolute;
+                left: -2rem;
+                top: 0.4rem;
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: var(--accent);
+                box-shadow: 0 0 0 3px rgba(79,255,176,0.2);
+            }
+
+        .timeline-period {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--muted);
+            margin-bottom: 0.3rem;
+        }
+
+        .timeline-company {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 0.2rem;
+        }
+
+        .timeline-role {
+            font-size: 0.85rem;
+            color: var(--accent);
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+            font-family: var(--font-mono);
+        }
+
+        .timeline-bullets {
+            list-style: none;
+        }
+
+            .timeline-bullets li {
+                font-size: 0.88rem;
+                color: #8892aa;
+                padding: 0.2rem 0;
+                padding-left: 1rem;
+                position: relative;
+            }
+
+                .timeline-bullets li::before {
+                    content: '—';
+                    position: absolute;
+                    left: 0;
+                    color: var(--border);
+                }
+
+        /* ── CONTACT ── */
+        .contact-section {
+            text-align: center;
+            padding: 5rem 2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+            .contact-section .section-title {
+                margin-bottom: 1rem;
+            }
+
+        .contact-sub {
+            color: var(--muted);
+            margin-bottom: 2.5rem;
+            font-size: 1rem;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--card);
+            border: 1px solid var(--border);
+            padding: 0.75rem 1.25rem;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text);
+            font-size: 0.88rem;
+            font-family: var(--font-mono);
+            transition: all 0.2s;
+        }
+
+            .contact-item:hover {
+                border-color: var(--accent);
+                color: var(--accent);
+                transform: translateY(-2px);
+            }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 0.8rem;
+            font-family: var(--font-mono);
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+            .reveal.visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        .cursor-glow {
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(79,255,176,0.04) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+            transform: translate(-50%, -50%);
+            transition: left 0.1s, top 0.1s;
+        }
+
+        @media (max-width: 768px) {
+            .hero-stats {
+                display: none;
+            }
+
+            nav {
+                padding: 1rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .hero {
+                padding-top: 5rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .stat-card {
+                animation: none;
+            }
+
+            .reveal {
+                opacity: 1;
+                transform: none;
+                transition: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cursor-glow" id="glow"></div>
+
+    <!-- NAV -->
+    <nav>
+        <div class="nav-logo">DHT.dev</div>
+        <ul class="nav-links">
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO -->
+    <div style="max-width:1100px; margin:0 auto; padding:0 2rem; position:relative;">
+        <div class="hero">
+            <div class="hero-content">
+                <div class="hero-eyebrow">Unity Game Developer</div>
+                <h1 class="hero-name">
+                    Do Hoanh<br><span class="highlight">Thong</span>
+                </h1>
+                <p class="hero-title">// Building mobile games people love</p>
+                <p class="hero-desc">
+                    Unity developer experienced in building casual mobile games from prototype to release.
+                    Specialized in monetization, analytics tracking, and performance optimization across Android & iOS.
+                </p>
+                <div class="hero-cta">
+                    <a href="#projects" class="btn btn-primary">View Projects ↓</a>
+                    <a href="mailto:hoanhthong2302@gmail.com" class="btn btn-outline">Get in Touch</a>
+                </div>
+            </div>
+
+            <div class="hero-stats">
+                <div class="stat-card">
+                    <div class="stat-number">4+</div>
+                    <div class="stat-label">Games Shipped</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Years Experience</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">10+</div>
+                    <div class="stat-label">Languages</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- SKILLS -->
+    <section id="skills">
+        <p class="section-label reveal">Capabilities</p>
+        <h2 class="section-title reveal">Skills & Technologies</h2>
+
+        <div class="skills-grid">
+            <div class="skill-group reveal">
+                <div class="skill-group-title">Language & Architecture</div>
+                <div class="skill-tags">
+                    <span class="tag">C#</span>
+                    <span class="tag">OOP</span>
+                    <span class="tag">SOLID</span>
+                    <span class="tag">Singleton</span>
+                    <span class="tag">Object Pooling</span>
+                    <span class="tag">MVC</span>
+                    <span class="tag">State Machine</span>
+                </div>
+            </div>
+
+            <div class="skill-group reveal">
+                <div class="skill-group-title">Unity Engine</div>
+                <div class="skill-tags">
+                    <span class="tag">Physics 2D/3D</span>
+                    <span class="tag">Animator</span>
+                    <span class="tag">Coroutine</span>
+                    <span class="tag">Addressables</span>
+                    <span class="tag">uGUI</span>
+                    <span class="tag">TextMeshPro</span>
+                    <span class="tag">DOTween</span>
+                    <span class="tag">Particle System</span>
+                </div>
+            </div>
+
+            <div class="skill-group reveal">
+                <div class="skill-group-title">Monetization & Ads</div>
+                <div class="skill-tags">
+                    <span class="tag">AppLovin MAX</span>
+                    <span class="tag">AdMob</span>
+                    <span class="tag">Native Ads (Java)</span>
+                    <span class="tag">Rewarded</span>
+                    <span class="tag">Interstitial</span>
+                    <span class="tag">Banner</span>
+                    <span class="tag">IAP</span>
+                </div>
+            </div>
+
+            <div class="skill-group reveal">
+                <div class="skill-group-title">Analytics & Attribution</div>
+                <div class="skill-tags">
+                    <span class="tag">Firebase Analytics</span>
+                    <span class="tag">Remote Config</span>
+                    <span class="tag">Crashlytics</span>
+                    <span class="tag">Adjust SDK</span>
+                    <span class="tag">Facebook SDK</span>
+                </div>
+            </div>
+
+            <div class="skill-group reveal">
+                <div class="skill-group-title">Platform & Build</div>
+                <div class="skill-tags">
+                    <span class="tag">Android</span>
+                    <span class="tag">iOS</span>
+                    <span class="tag">TikTok Mini Game</span>
+                    <span class="tag">Android Studio</span>
+                    <span class="tag">Fishnet (Online)</span>
+                </div>
+            </div>
+
+            <div class="skill-group reveal">
+                <div class="skill-group-title">Tools & Workflow</div>
+                <div class="skill-tags">
+                    <span class="tag">Git / Fork</span>
+                    <span class="tag">GitHub</span>
+                    <span class="tag">Claude AI</span>
+                    <span class="tag">Unity MCP</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- PROJECTS -->
+    <section id="projects">
+        <p class="section-label reveal">Portfolio</p>
+        <h2 class="section-title reveal">Featured Projects</h2>
+
+        <div class="projects-grid">
+
+            <!-- Brush The Cat -->
+            <div class="project-card reveal">
+                <div class="project-video" data-video-id="">
+                    <!-- Replace empty string in data-video-id above with your YouTube video ID, e.g. "dQw4w9WgXcQ" -->
+                    <div class="video-placeholder">
+                        <div class="ph-icon">▶</div>
+                        <div class="ph-text">DEMO VIDEO COMING SOON<br>add YouTube ID in the HTML</div>
+                    </div>
+                </div>
+                <div class="project-header">
+                    <div class="project-icon" style="background: rgba(79,255,176,0.1);">🐱</div>
+                    <span class="project-badge badge-live">● LIVE</span>
+                </div>
+                <div class="project-body">
+                    <div class="project-name">Brush The Cat</div>
+                    <div class="project-period">Apr 2026 – Present</div>
+                    <p class="project-desc">Casual mobile game with multiple bonus mini-games. The most complex project to date, featuring native Android ad integration.</p>
+                    <ul class="project-highlights">
+                        <li>Native Ads (AdMob) implemented at the Android Java layer</li>
+                        <li>Mini-game systems: Save the Cat, Barking Battle</li>
+                        <li>Firebase event tracking per spec + Adjust SDK</li>
+                        <li>Localization across 10+ languages</li>
+                        <li>Built TikTok Mini Game with ad integration</li>
+                    </ul>
+                    <div class="project-tech">
+                        <span class="tech-tag">Unity</span>
+                        <span class="tech-tag">Java (Android)</span>
+                        <span class="tech-tag">AdMob Native</span>
+                        <span class="tech-tag">AppLovin MAX</span>
+                        <span class="tech-tag">Firebase</span>
+                        <span class="tech-tag">Adjust</span>
+                    </div>
+                    <a href="https://play.google.com/store/apps/details?id=com.dg.brush.cat" target="_blank" class="project-link">Google Play →</a>
+                </div>
+            </div>
+
+            <!-- XO King -->
+            <div class="project-card reveal">
+                <div class="project-video" data-video-id="">
+                    <div class="video-placeholder">
+                        <div class="ph-icon">▶</div>
+                        <div class="ph-text">DEMO VIDEO COMING SOON<br>add YouTube ID in the HTML</div>
+                    </div>
+                </div>
+                <div class="project-header">
+                    <div class="project-icon" style="background: rgba(123,97,255,0.1);">♟️</div>
+                    <span class="project-badge badge-online">● ONLINE</span>
+                </div>
+                <div class="project-body">
+                    <div class="project-name">XO King – Tic Tac Toe Online</div>
+                    <div class="project-period">Oct 2025 – Dec 2025</div>
+                    <p class="project-desc">Cross-platform online competitive game with a full social system and a TikTok Mini Game build.</p>
+                    <ul class="project-highlights">
+                        <li>Online / Local / Bot modes backed by server API</li>
+                        <li>Social systems: leaderboard, friends, chat, challenges</li>
+                        <li>Firebase, Adjust, IAP, and ad integration</li>
+                        <li>TikTok Mini Game build with ads</li>
+                    </ul>
+                    <div class="project-tech">
+                        <span class="tech-tag">Unity</span>
+                        <span class="tech-tag">Fishnet</span>
+                        <span class="tech-tag">Firebase</span>
+                        <span class="tech-tag">IAP</span>
+                        <span class="tech-tag">TikTok SDK</span>
+                    </div>
+                    <a href="https://play.google.com/store/apps/details?id=com.cdt.tictactoe.on.game" target="_blank" class="project-link">Google Play →</a>
+                </div>
+            </div>
+
+            <!-- Royal Car Customs -->
+            <div class="project-card reveal">
+                <div class="project-video" data-video-id="">
+                    <div class="video-placeholder">
+                        <div class="ph-icon">▶</div>
+                        <div class="ph-text">DEMO VIDEO COMING SOON<br>add YouTube ID in the HTML</div>
+                    </div>
+                </div>
+                <div class="project-header">
+                    <div class="project-icon" style="background: rgba(255,183,77,0.1);">🚗</div>
+                    <span class="project-badge badge-live">● LIVE</span>
+                </div>
+                <div class="project-body">
+                    <div class="project-name">Royal Car Customs</div>
+                    <div class="project-period">Sep 2024 – Apr 2025</div>
+                    <p class="project-desc">Casual game released across multiple countries, featuring a car customization system and event mini-games.</p>
+                    <ul class="project-highlights">
+                        <li>Event mini-games: Magic Paint & Lucky Jackpot</li>
+                        <li>Car creation and customization system</li>
+                        <li>Multi-language localization</li>
+                    </ul>
+                    <div class="project-tech">
+                        <span class="tech-tag">Unity</span>
+                        <span class="tech-tag">uGUI</span>
+                        <span class="tech-tag">DOTween</span>
+                        <span class="tech-tag">Localization</span>
+                    </div>
+                    <a href="https://play.google.com/store/apps/details?id=com.abi.royalcarcustom" target="_blank" class="project-link">Google Play →</a>
+                </div>
+            </div>
+
+            <!-- Diamond Factory -->
+            <div class="project-card reveal">
+                <div class="project-video" data-video-id="">
+                    <div class="video-placeholder">
+                        <div class="ph-icon">▶</div>
+                        <div class="ph-text">DEMO VIDEO COMING SOON<br>add YouTube ID in the HTML</div>
+                    </div>
+                </div>
+                <div class="project-header">
+                    <div class="project-icon" style="background: rgba(100,200,255,0.1);">💎</div>
+                    <span class="project-badge badge-live">● LIVE</span>
+                </div>
+                <div class="project-body">
+                    <div class="project-name">Diamond Factory</div>
+                    <div class="project-period">Mar 2025 – Apr 2025</div>
+                    <p class="project-desc">Puzzle game featuring a custom level design tool and a complete UI flow from splash to leaderboard.</p>
+                    <ul class="project-highlights">
+                        <li>Level design tool for the Level Design team</li>
+                        <li>UI flow: Splash, Home, Game, Shop, Leaderboard</li>
+                    </ul>
+                    <div class="project-tech">
+                        <span class="tech-tag">Unity</span>
+                        <span class="tech-tag">Editor Tools</span>
+                        <span class="tech-tag">uGUI</span>
+                    </div>
+                    <a href="https://play.google.com/store/apps/details?id=com.vw.trafficpuzzle1" target="_blank" class="project-link">Google Play →</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+        <p class="section-label reveal">History</p>
+        <h2 class="section-title reveal">Work Experience</h2>
+
+        <div class="timeline">
+
+            <div class="timeline-item reveal">
+                <div class="timeline-period">Jun 2025 – Present</div>
+                <div class="timeline-company">EZTech & CDT Games Studio</div>
+                <div class="timeline-role">Unity Developer</div>
+                <ul class="timeline-bullets">
+                    <li>Integrated cross-platform ads: AppLovin MAX, AdMob (rewarded, interstitial, open app, banner, native)</li>
+                    <li>Firebase Analytics + Adjust SDK for tracking & attribution</li>
+                    <li>Successfully built a TikTok Mini Game with ad integration</li>
+                    <li>Researched and prototyped an online game using Fishnet networking</li>
+                </ul>
+            </div>
+
+            <div class="timeline-item reveal">
+                <div class="timeline-period">Sep 2024 – May 2025</div>
+                <div class="timeline-company">VLion</div>
+                <div class="timeline-role">Unity Developer</div>
+                <ul class="timeline-bullets">
+                    <li>Built and optimized gameplay systems for a mobile game</li>
+                    <li>Contributed to UI/UX design and game design direction</li>
+                </ul>
+            </div>
+
+            <div class="timeline-item reveal">
+                <div class="timeline-period">Jul 2023 – Nov 2023</div>
+                <div class="timeline-company">BlackStar Lab</div>
+                <div class="timeline-role">Intern Unity Developer</div>
+                <ul class="timeline-bullets">
+                    <li>Built UI with uGUI/TextMeshPro for gameplay screens</li>
+                    <li>Integrated Firebase Analytics and AdMob into the project</li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- CONTACT -->
+    <div class="contact-section" id="contact">
+        <p class="section-label reveal" style="text-align:center;">Contact</p>
+        <h2 class="section-title reveal">Let's work together</h2>
+        <p class="contact-sub reveal">Always open to new and exciting opportunities.</p>
+        <div class="contact-links reveal">
+            <a href="mailto:hoanhthong2302@gmail.com" class="contact-item">
+                ✉ hoanhthong2302@gmail.com
+            </a>
+            <a href="tel:+84375803723" class="contact-item">
+                📞 +84 375 803 723
+            </a>
+            <a href="https://github.com/" target="_blank" class="contact-item">
+                ⌥ GitHub
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 Do Hoanh Thong · Built with ♥ · Unity Developer</p>
+    </footer>
+
+    <script>
+  // Cursor glow
+  const glow = document.getElementById('glow');
+  document.addEventListener('mousemove', e => {
+    glow.style.left = e.clientX + 'px';
+    glow.style.top = e.clientY + 'px';
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  document.querySelectorAll('.hero .reveal, .hero-content > *').forEach(el => {
+    el.classList.add('visible');
+  });
+
+  // Auto-embed YouTube videos if a data-video-id is provided
+  document.querySelectorAll('.project-video').forEach(box => {
+    const videoId = box.getAttribute('data-video-id');
+    if (videoId && videoId.trim() !== '') {
+      box.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}" title="Gameplay demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+    }
+  });
+    </script>
+</body>
+</html>
