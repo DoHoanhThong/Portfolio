@@ -1177,14 +1177,24 @@
 
         // Auto-embed YouTube videos if a data-video-id is provided
         document.querySelectorAll('.project-video').forEach(box => {
-            const videoId = box.getAttribute('data-video-id');
-            if (videoId && videoId.trim() !== '') {
-                box.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}" title="Gameplay demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
-            }
+            const normalVideoId = box.getAttribute('data-video-id');
+            const shortVideoId = box.getAttribute('data-short-video-id');
 
-            const videoId = box.getAttribute('data-short-video-id');
-            if (videoId && videoId.trim() !== '') {
-                box.innerHTML = `<iframe src="https://www.youtube.com/shorts/${videoId}" title="Gameplay demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+            if (normalVideoId && normalVideoId.trim() !== '') {
+                box.innerHTML = `
+                <iframe src="https://www.youtube.com/embed/${normalVideoId}" 
+                        title="Gameplay demo" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                </iframe>`;
+            }
+            else if (shortVideoId && shortVideoId.trim() !== '') {
+                box.innerHTML = `
+                <iframe src="https://www.youtube.com/shorts/${shortVideoId}" 
+                        title="Gameplay demo" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                </iframe>`;
             }
         });
     </script>
