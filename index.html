@@ -981,35 +981,29 @@
                 </div>
             </div>
 
-            <!-- Royal Car Customs -->
+            <!-- TileMaze -->
             <div class="project-card reveal">
-                <div class="project-video" data-video-id="">
-                    <div class="video-placeholder">
-                        <div class="ph-icon">▶</div>
-                        <div class="ph-text">DEMO VIDEO COMING SOON<br>add YouTube ID in the HTML</div>
-                    </div>
+                <div class="project-video" data-short-video-id="I8wg23gaRsA">
                 </div>
                 <div class="project-header">
-                    <div class="project-icon" style="background: rgba(255,183,77,0.1);">🚗</div>
+                    <div class="project-icon" style="background: rgba(100,200,255,0.1);">💎</div>
                     <span class="project-badge badge-live">● LIVE</span>
                 </div>
                 <div class="project-body">
-                    <div class="project-name">Royal Car Customs</div>
-                    <div class="project-period">Sep 2024 – Apr 2025</div>
-                    <p class="project-desc">Casual game released across multiple countries, featuring a car customization system and event mini-games.</p>
+                    <div class="project-name">Tile Maze</div></div>
+                    <div class="project-period">Mar 2025 – Apr 2025</div>
+                    <p class="project-desc">Puzzle game featuring a custom level design tool and a complete UI flow from splash to leaderboard.</p>
                     <ul class="project-highlights">
-                        <li>Event mini-games: Magic Paint & Lucky Jackpot</li>
-                        <li>Car creation and customization system</li>
-                        <li>Multi-language localization</li>
+                        <li>Level design tool for the Level Design team</li>
+                        <li>UI flow: Splash, Home, Game, Shop, Leaderboard</li>
                     </ul>
                     <div class="project-tech">
                         <span class="tech-tag">Unity</span>
+                        <span class="tech-tag">Editor Tools</span>
                         <span class="tech-tag">uGUI</span>
-                        <span class="tech-tag">DOTween</span>
-                        <span class="tech-tag">Localization</span>
                         <span class="tech-tag">Addressable</span>
                     </div>
-                    <a href="https://play.google.com/store/apps/details?id=com.abi.royalcarcustom" target="_blank" class="project-link">Google Play →</a>
+                    <a href="https://play.google.com/store/apps/details?id=com.vw.trafficpuzzle1" target="_blank" class="project-link">Google Play →</a>
                 </div>
             </div>
 
@@ -1042,6 +1036,40 @@
                     <a href="https://play.google.com/store/apps/details?id=com.vw.trafficpuzzle1" target="_blank" class="project-link">Google Play →</a>
                 </div>
             </div>
+
+            <!-- Royal Car Customs -->
+            <div class="project-card reveal">
+                <div class="project-video" data-video-id="">
+                    <div class="video-placeholder">
+                        <div class="ph-icon">▶</div>
+                        <div class="ph-text">DEMO VIDEO COMING SOON<br>add YouTube ID in the HTML</div>
+                    </div>
+                </div>
+                <div class="project-header">
+                    <div class="project-icon" style="background: rgba(255,183,77,0.1);">🚗</div>
+                    <span class="project-badge badge-live">● LIVE</span>
+                </div>
+                <div class="project-body">
+                    <div class="project-name">Royal Car Customs</div>
+                    <div class="project-period">Sep 2024 – Apr 2025</div>
+                    <p class="project-desc">Casual game released across multiple countries, featuring a car customization system and event mini-games.</p>
+                    <ul class="project-highlights">
+                        <li>Event mini-games: Magic Paint & Lucky Jackpot</li>
+                        <li>Car creation and customization system</li>
+                        <li>Multi-language localization</li>
+                    </ul>
+                    <div class="project-tech">
+                        <span class="tech-tag">Unity</span>
+                        <span class="tech-tag">uGUI</span>
+                        <span class="tech-tag">DOTween</span>
+                        <span class="tech-tag">Localization</span>
+                        <span class="tech-tag">Addressable</span>
+                    </div>
+                    <a href="https://play.google.com/store/apps/details?id=com.abi.royalcarcustom" target="_blank" class="project-link">Google Play →</a>
+                </div>
+            </div>
+
+
 
         </div>
     </section>
@@ -1143,6 +1171,11 @@
             const videoId = box.getAttribute('data-video-id');
             if (videoId && videoId.trim() !== '') {
                 box.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}" title="Gameplay demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+            }
+
+            const videoId = box.getAttribute('data-short-video-id');
+            if (videoId && videoId.trim() !== '') {
+                box.innerHTML = `<iframe src="https://www.youtube.com/shorts/${videoId}" title="Gameplay demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
             }
         });
     </script>
