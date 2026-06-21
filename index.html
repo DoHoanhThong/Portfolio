@@ -51,7 +51,7 @@
                 opacity: 0.4;
             }
 
-        /* ── NAV ── */
+        /* ── NAV BAR ANIMATION ── */
         nav {
             position: fixed;
             top: 0;
@@ -65,6 +65,14 @@
             background: rgba(10,13,20,0.85);
             backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border);
+            transform: translateY(-100%);
+            animation: slideDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes slideDown {
+            to {
+                transform: translateY(0);
+            }
         }
 
         .nav-logo {
@@ -78,6 +86,7 @@
             display: flex;
             gap: 2rem;
             list-style: none;
+            align-items: center;
         }
 
             .nav-links a {
@@ -87,14 +96,85 @@
                 font-weight: 500;
                 letter-spacing: 0.05em;
                 text-transform: uppercase;
-                transition: color 0.2s;
+                position: relative;
+                transition: color 0.3s ease;
             }
+
+                .nav-links a::after {
+                    content: '';
+                    position: absolute;
+                    bottom: -4px;
+                    left: 0;
+                    width: 0;
+                    height: 1px;
+                    background: var(--accent);
+                    transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+                }
 
                 .nav-links a:hover {
                     color: var(--accent);
                 }
 
-        /* ── HERO ── */
+                    .nav-links a:hover::after {
+                        width: 100%;
+                    }
+
+        /* ── LANG TOGGLE ULTRA POP ── */
+        .lang-toggle {
+            display: flex;
+            align-items: center;
+            background: #111625;
+            border: 1.5px solid var(--accent);
+            border-radius: 8px;
+            padding: 0.25rem;
+            font-family: var(--font-mono);
+            box-shadow: 0 0 15px rgba(79, 255, 176, 0.2), inset 0 0 10px rgba(79, 255, 176, 0.05);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            animation: pulseGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            0% {
+                box-shadow: 0 0 12px rgba(79, 255, 176, 0.15);
+                border-color: var(--accent);
+            }
+
+            100% {
+                box-shadow: 0 0 22px rgba(79, 255, 176, 0.4);
+                border-color: #76ffc4;
+            }
+        }
+
+        .lang-toggle:hover {
+            transform: scale(1.05);
+        }
+
+        .lang-toggle button {
+            background: transparent;
+            border: none;
+            color: #a0a8c0;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            padding: 0.4rem 0.9rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+            .lang-toggle button.active {
+                background: var(--accent);
+                color: #0a0d14;
+                box-shadow: 0 2px 8px rgba(79, 255, 176, 0.3);
+            }
+
+            .lang-toggle button:not(.active):hover {
+                color: var(--accent);
+                background: rgba(79, 255, 176, 0.12);
+            }
+
+        /* ── HERO ENTER ANIMATIONS ── */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -120,6 +200,9 @@
             display: flex;
             align-items: center;
             gap: 0.75rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUpIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.2s;
         }
 
             .hero-eyebrow::before {
@@ -137,6 +220,9 @@
             line-height: 1;
             letter-spacing: -0.02em;
             margin-bottom: 0.5rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUpIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.4s;
         }
 
             .hero-name .highlight {
@@ -152,6 +238,9 @@
             color: var(--muted);
             margin-bottom: 2rem;
             font-weight: 400;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUpIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.6s;
         }
 
         .hero-desc {
@@ -160,12 +249,25 @@
             font-size: 1.05rem;
             line-height: 1.75;
             margin-bottom: 2.5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUpIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.7s;
         }
 
         .hero-cta {
             display: flex;
             gap: 1rem;
             flex-wrap: wrap;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUpIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.8s;
+        }
+
+        @keyframes fadeUpIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .btn {
@@ -178,7 +280,7 @@
             font-size: 0.9rem;
             font-weight: 600;
             text-decoration: none;
-            transition: all 0.2s;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             cursor: pointer;
             border: none;
         }
@@ -190,8 +292,8 @@
 
             .btn-primary:hover {
                 background: #6effc0;
-                transform: translateY(-2px);
-                box-shadow: 0 8px 24px rgba(79,255,176,0.25);
+                transform: translateY(-4px) scale(1.02);
+                box-shadow: 0 12px 28px rgba(79,255,176,0.3);
             }
 
         .btn-outline {
@@ -203,7 +305,8 @@
             .btn-outline:hover {
                 border-color: var(--accent);
                 color: var(--accent);
-                transform: translateY(-2px);
+                transform: translateY(-4px);
+                background: rgba(79, 255, 176, 0.03);
             }
 
         .hero-stats {
@@ -214,6 +317,14 @@
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards 1s;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
         }
 
         .stat-card {
@@ -224,7 +335,13 @@
             text-align: center;
             min-width: 130px;
             animation: float 4s ease-in-out infinite;
+            transition: border-color 0.3s ease, transform 0.3s ease;
         }
+
+            .stat-card:hover {
+                border-color: var(--accent);
+                transform: scale(1.05);
+            }
 
             .stat-card:nth-child(2) {
                 animation-delay: -1.3s;
@@ -260,7 +377,7 @@
             letter-spacing: 0.08em;
         }
 
-        /* ── SECTIONS ── */
+        /* ── SMOOTH SCROLL REVEAL EFFECТ ── */
         section {
             padding: 5rem 2rem;
             max-width: 1100px;
@@ -296,12 +413,13 @@
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 1.5rem;
-            transition: border-color 0.2s, transform 0.2s;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
             .skill-group:hover {
                 border-color: var(--accent2);
-                transform: translateY(-3px);
+                transform: translateY(-5px) scale(1.01);
+                box-shadow: 0 10px 25px rgba(123,97,255,0.15);
             }
 
         .skill-group-title {
@@ -331,17 +449,24 @@
         }
 
         .tag {
-            background: rgba(123,97,255,0.1);
-            border: 1px solid rgba(123,97,255,0.2);
+            background: rgba(123,97,255,0.06);
+            border: 1px solid rgba(123,97,255,0.15);
             color: #c4b8ff;
             padding: 0.3rem 0.7rem;
             border-radius: 4px;
             font-size: 0.78rem;
             font-weight: 500;
             font-family: var(--font-mono);
+            transition: all 0.2s ease;
         }
 
-        /* ── PROJECTS ── */
+            .tag:hover {
+                background: var(--accent2);
+                color: #ffffff;
+                transform: scale(1.05);
+            }
+
+        /* ── PROJECTS CARD EFFECTS ── */
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
@@ -353,22 +478,24 @@
             border: 1px solid var(--border);
             border-radius: 16px;
             overflow: hidden;
-            transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            transition: border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
         }
 
             .project-card:hover {
                 border-color: var(--accent);
-                transform: translateY(-5px);
-                box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 0 1px rgba(79,255,176,0.1);
+                transform: translateY(-8px) scale(1.01);
+                box-shadow: 0 25px 50px rgba(0,0,0,0.4), 0 0 20px rgba(79,255,176,0.15);
             }
 
-        /* video embed */
         .project-video {
             position: relative;
             width: 100%;
-            padding-top: 56.25%; /* 16:9 */
+            padding-top: 56.25%;
             background: #05070b;
             border-bottom: 1px solid var(--border);
+            overflow: hidden;
         }
 
             .project-video iframe {
@@ -378,32 +505,12 @@
                 width: 100%;
                 height: 100%;
                 border: none;
+                transition: transform 0.5s ease;
             }
 
-        .video-placeholder {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            color: var(--muted);
-            background: repeating-linear-gradient(45deg, #0d1119, #0d1119 10px, #0f131c 10px, #0f131c 20px);
+        .project-card:hover .project-video iframe {
+            transform: scale(1.03);
         }
-
-            .video-placeholder .ph-icon {
-                font-size: 2rem;
-                opacity: 0.5;
-            }
-
-            .video-placeholder .ph-text {
-                font-family: var(--font-mono);
-                font-size: 0.72rem;
-                letter-spacing: 0.05em;
-                text-align: center;
-                padding: 0 1.5rem;
-            }
 
         .project-header {
             padding: 1.5rem 1.5rem 0;
@@ -420,16 +527,21 @@
             align-items: center;
             justify-content: center;
             font-size: 1.4rem;
-            overflow: hidden; /* thêm */
+            overflow: hidden;
             background: var(--card);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-            .project-icon img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                border-radius: 12px;
-            }
+        .project-card:hover .project-icon {
+            transform: scale(1.1) rotate(4deg);
+        }
+
+        .project-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+        }
 
         .project-badge {
             font-family: var(--font-mono);
@@ -452,8 +564,17 @@
             border: 1px solid rgba(123,97,255,0.3);
         }
 
+        .badge-dev {
+            background: rgba(255,183,77,0.1);
+            color: #ffb74d;
+            border: 1px solid rgba(255,183,77,0.3);
+        }
+
         .project-body {
             padding: 1rem 1.5rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
         }
 
         .project-name {
@@ -468,6 +589,21 @@
             font-size: 0.72rem;
             color: var(--muted);
             margin-bottom: 0.85rem;
+        }
+
+        .project-company {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            color: var(--accent2);
+            background: rgba(123,97,255,0.1);
+            border: 1px solid rgba(123,97,255,0.3);
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            margin-bottom: 0.85rem;
+            width: fit-content;
         }
 
         .project-desc {
@@ -496,7 +632,12 @@
                     left: 0;
                     color: var(--accent);
                     font-size: 0.7rem;
+                    transition: transform 0.2s ease;
                 }
+
+        .project-card:hover .project-highlights li::before {
+            transform: translateX(2px);
+        }
 
         .project-tech {
             display: flex;
@@ -515,6 +656,14 @@
             font-family: var(--font-mono);
         }
 
+        .project-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem 1.25rem;
+            margin-top: auto;
+            padding-top: 0.5rem;
+        }
+
         .project-link {
             display: inline-flex;
             align-items: center;
@@ -524,14 +673,20 @@
             font-weight: 600;
             text-decoration: none;
             font-family: var(--font-mono);
-            transition: gap 0.2s;
+            transition: gap 0.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
             .project-link:hover {
                 gap: 0.7rem;
             }
 
-        /* ── EXPERIENCE ── */
+            .project-link.disabled {
+                color: var(--muted);
+                cursor: default;
+                pointer-events: none;
+            }
+
+        /* ── EXPERIENCE TIMELINE ── */
         .timeline {
             position: relative;
             padding-left: 2rem;
@@ -563,6 +718,13 @@
                 border-radius: 50%;
                 background: var(--accent);
                 box-shadow: 0 0 0 3px rgba(79,255,176,0.2);
+                transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            }
+
+            .timeline-item:hover::before {
+                background: var(--accent2);
+                box-shadow: 0 0 0 6px rgba(123,97,255,0.3);
+                transform: scale(1.2);
             }
 
         .timeline-period {
@@ -607,7 +769,7 @@
                     color: var(--border);
                 }
 
-        /* ── CONTACT ── */
+        /* ── CONTACT & FOOTER ── */
         .contact-section {
             text-align: center;
             padding: 5rem 2rem;
@@ -644,13 +806,14 @@
             color: var(--text);
             font-size: 0.88rem;
             font-family: var(--font-mono);
-            transition: all 0.2s;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
             .contact-item:hover {
                 border-color: var(--accent);
                 color: var(--accent);
-                transform: translateY(-2px);
+                transform: translateY(-4px) scale(1.02);
+                box-shadow: 0 10px 20px rgba(79,255,176,0.1);
             }
 
         footer {
@@ -669,27 +832,28 @@
             margin: 0 auto;
         }
 
+        /* ── INTERSECTION OBSERVER REVEAL (CHUẨN SANG MƯỢT) ── */
         .reveal {
             opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
+            transform: translateY(40px) scale(0.98);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
             .reveal.visible {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateY(0) scale(1);
             }
 
         .cursor-glow {
             position: fixed;
-            width: 400px;
-            height: 400px;
+            width: 500px;
+            height: 500px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(79,255,176,0.04) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(79,255,176,0.06) 0%, transparent 70%);
             pointer-events: none;
             z-index: 0;
             transform: translate(-50%, -50%);
-            transition: left 0.1s, top 0.1s;
+            transition: left 0.15s ease-out, top 0.15s ease-out;
         }
 
         @media (max-width: 768px) {
@@ -704,6 +868,15 @@
             .nav-links {
                 gap: 1rem;
             }
+
+            .lang-toggle {
+                padding: 0.2rem;
+            }
+
+                .lang-toggle button {
+                    padding: 0.3rem 0.5rem;
+                    font-size: 0.7rem;
+                }
 
             .hero {
                 padding-top: 5rem;
@@ -731,10 +904,14 @@
     <nav>
         <div class="nav-logo">Do_Hoanh_Thong.unitydev</div>
         <ul class="nav-links">
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#experience">Experience</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="#skills" data-i18n="nav_skills">Skills</a></li>
+            <li><a href="#projects" data-i18n="nav_projects">Projects</a></li>
+            <li><a href="#experience" data-i18n="nav_experience">Experience</a></li>
+            <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
+            <li class="lang-toggle">
+                <button type="button" data-lang="en" class="active">EN</button>
+                <button type="button" data-lang="vi">VI</button>
+            </li>
         </ul>
     </nav>
 
@@ -742,33 +919,29 @@
     <div style="max-width:1100px; margin:0 auto; padding:0 2rem; position:relative;">
         <div class="hero">
             <div class="hero-content">
-                <div class="hero-eyebrow">Unity Game Developer</div>
+                <div class="hero-eyebrow" data-i18n="hero_eyebrow">Unity Game Developer</div>
                 <h1 class="hero-name">
                     Do Hoanh<br><span class="highlight">Thong</span>
                 </h1>
-                <p class="hero-title">// Building mobile games people love</p>
-                <p class="hero-desc">
+                <p class="hero-title" data-i18n="hero_title">// Building mobile games people love</p>
+                <p class="hero-desc" data-i18n="hero_desc">
                     Unity developer experienced in building casual mobile games from prototype to release.
                     Specialized in monetization, analytics tracking, and performance optimization across Android & iOS.
                 </p>
                 <div class="hero-cta">
-                    <a href="#projects" class="btn btn-primary">View Projects ↓</a>
-                    <a href="mailto:hoanhthong2302@gmail.com" class="btn btn-outline">Get in Touch</a>
+                    <a href="#projects" class="btn btn-primary" data-i18n="hero_cta_view">View Projects ↓</a>
+                    <a href="mailto:hoanhthong2302@gmail.com" class="btn btn-outline" data-i18n="hero_cta_contact">Get in Touch</a>
                 </div>
             </div>
 
             <div class="hero-stats">
                 <div class="stat-card">
-                    <div class="stat-number">4+</div>
-                    <div class="stat-label">Games Shipped</div>
+                    <div class="stat-number">6+</div>
+                    <div class="stat-label" data-i18n="stat_games">Games Shipped</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-number">1+</div>
-                    <div class="stat-label">Years Experience</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">10+</div>
-                    <div class="stat-label">Languages</div>
+                    <div class="stat-label" data-i18n="stat_years">Years Experience</div>
                 </div>
             </div>
         </div>
@@ -778,12 +951,12 @@
 
     <!-- SKILLS -->
     <section id="skills">
-        <p class="section-label reveal">Capabilities</p>
-        <h2 class="section-title reveal">Skills & Technologies</h2>
+        <p class="section-label reveal" data-i18n="skills_label">Capabilities</p>
+        <h2 class="section-title reveal" data-i18n="skills_title">Skills & Technologies</h2>
 
         <div class="skills-grid">
             <div class="skill-group reveal">
-                <div class="skill-group-title">Language & Architecture</div>
+                <div class="skill-group-title" data-i18n="skill_lang_arch">Language & Architecture</div>
                 <div class="skill-tags">
                     <span class="tag">C#</span>
                     <span class="tag">OOP</span>
@@ -794,7 +967,7 @@
             </div>
 
             <div class="skill-group reveal">
-                <div class="skill-group-title">Unity Engine</div>
+                <div class="skill-group-title" data-i18n="skill_unity">Unity Engine</div>
                 <div class="skill-tags">
                     <span class="tag">Physics 2D/3D</span>
                     <span class="tag">Animator</span>
@@ -808,7 +981,7 @@
             </div>
 
             <div class="skill-group reveal">
-                <div class="skill-group-title">Monetization & Ads</div>
+                <div class="skill-group-title" data-i18n="skill_monetization">Monetization & Ads</div>
                 <div class="skill-tags">
                     <span class="tag">AppLovin MAX</span>
                     <span class="tag">AdMob</span>
@@ -822,7 +995,7 @@
             </div>
 
             <div class="skill-group reveal">
-                <div class="skill-group-title">Analytics & Attribution</div>
+                <div class="skill-group-title" data-i18n="skill_analytics">Analytics & Attribution</div>
                 <div class="skill-tags">
                     <span class="tag">Firebase Analytics</span>
                     <span class="tag">Remote Config</span>
@@ -833,7 +1006,7 @@
             </div>
 
             <div class="skill-group reveal">
-                <div class="skill-group-title">Platform & Build</div>
+                <div class="skill-group-title" data-i18n="skill_platform">Platform & Build</div>
                 <div class="skill-tags">
                     <span class="tag">Android</span>
                     <span class="tag">iOS</span>
@@ -844,7 +1017,7 @@
             </div>
 
             <div class="skill-group reveal">
-                <div class="skill-group-title">Tools & Workflow</div>
+                <div class="skill-group-title" data-i18n="skill_tools">Tools & Workflow</div>
                 <div class="skill-tags">
                     <span class="tag">Git / Fork</span>
                     <span class="tag">GitHub</span>
@@ -859,14 +1032,13 @@
 
     <!-- PROJECTS -->
     <section id="projects">
-        <p class="section-label reveal">Portfolio</p>
-        <h2 class="section-title reveal">Featured Projects</h2>
+        <p class="section-label reveal" data-i18n="projects_label">Portfolio</p>
+        <h2 class="section-title reveal" data-i18n="projects_title">Featured Projects</h2>
 
         <div class="projects-grid">
             <!-- Dog Barking Battle-->
             <div class="project-card reveal">
-                <div class="project-video" data-video-id="uPiQg7bs5QY">
-                </div>
+                <div class="project-video" data-video-id="uPiQg7bs5QY"></div>
                 <div class="project-header">
                     <div class="project-icon">
                         <img src="barkingbattle_icon.png" alt="Dog Barking Battle Icon">
@@ -876,11 +1048,12 @@
                 <div class="project-body">
                     <div class="project-name">Dog Barking Battle: Bow bow</div>
                     <div class="project-period">Jun 2026 – Present</div>
-                    <p class="project-desc">Casual mobile game with multiple bonus mini-games. The most complex project to date, featuring native Android ad integration.</p>
-                    <ul class="project-highlights">
-                        <li>Xây dựng hệ thống gameplay với 3 chế độ chơi : Story, Rank và Enless</li>
-                        <li>Xây dựng hệ thống UI</li>
-                        <li>Sử dụng Addressable để load texture, prefab, ....</li>
+                    <div class="project-company">🏢 EZTech & CDT Games Studio</div>
+                    <p class="project-desc" data-i18n="proj_dogbark_desc">Casual mobile game with multiple bonus mini-games. The most complex project to date, featuring native Android ad integration.</p>
+                    <ul class="project-highlights" data-i18n-html="proj_dogbark_highlights">
+                        <li>Built gameplay systems for 3 modes: Story, Rank, and Endless</li>
+                        <li>Built the full UI system</li>
+                        <li>Used Addressables to load textures, prefabs, and more</li>
                         <li>Firebase event tracking per spec + Adjust SDK</li>
                         <li>Localization across 10+ languages</li>
                     </ul>
@@ -892,15 +1065,16 @@
                         <span class="tech-tag">DOTween</span>
                         <span class="tech-tag">Addressable</span>
                     </div>
-                    <a href="https://play.google.com/store/apps/details?id=com.dg.barking.doggames.battle" target="_blank" class="project-link">Google Play →</a>
-                    <a href="https://apps.apple.com/us/app/dog-barking-battle-bow-bow/id6774469797" target="_blank" class="project-link">App Store →</a>
+                    <div class="project-links">
+                        <a href="https://play.google.com/store/apps/details?id=com.dg.barking.doggames.battle" target="_blank" class="project-link">Google Play →</a>
+                        <a href="https://apps.apple.com/us/app/dog-barking-battle-bow-bow/id6774469797" target="_blank" class="project-link">App Store →</a>
+                    </div>
                 </div>
             </div>
 
             <!-- Brush The Cat -->
             <div class="project-card reveal">
-                <div class="project-video" data-video-id="kpzZRSTGEI8">
-                </div>
+                <div class="project-video" data-video-id="kpzZRSTGEI8"></div>
                 <div class="project-header">
                     <div class="project-icon">
                         <img src="brushthecat_icon.png" alt="Brush The Cat Icon">
@@ -910,8 +1084,9 @@
                 <div class="project-body">
                     <div class="project-name">Brush The Cat</div>
                     <div class="project-period">Apr 2026 – Present</div>
-                    <p class="project-desc">Casual mobile game with multiple bonus mini-games. The most complex project to date, featuring native Android ad integration.</p>
-                    <ul class="project-highlights">
+                    <div class="project-company">🏢 EZTech & CDT Games Studio</div>
+                    <p class="project-desc" data-i18n="proj_brushcat_desc">Casual mobile game with multiple bonus mini-games. The most complex project to date, featuring native Android ad integration.</p>
+                    <ul class="project-highlights" data-i18n-html="proj_brushcat_highlights">
                         <li>Native Ads (AdMob) implemented at the Android Java layer</li>
                         <li>Mini-game systems: Save the Cat, Barking Battle, ...</li>
                         <li>Firebase event tracking per spec + Adjust SDK</li>
@@ -929,15 +1104,16 @@
                         <span class="tech-tag">DOTween</span>
                         <span class="tech-tag">Facebook SDK</span>
                     </div>
-                    <a href="https://play.google.com/store/apps/details?id=com.dg.brush.cat" target="_blank" class="project-link">Google Play →</a>
-                    <a href="https://apps.apple.com/us/app/brush-the-cat/id6766826676" target="_blank" class="project-link">App Store →</a>
+                    <div class="project-links">
+                        <a href="https://play.google.com/store/apps/details?id=com.dg.brush.cat" target="_blank" class="project-link">Google Play →</a>
+                        <a href="https://apps.apple.com/us/app/brush-the-cat/id6766826676" target="_blank" class="project-link">App Store →</a>
+                    </div>
                 </div>
             </div>
 
             <!-- XO King -->
             <div class="project-card reveal">
-                <div class="project-video" data-video-id="MQyeN2SyA7c">
-                </div>
+                <div class="project-video" data-video-id="MQyeN2SyA7c"></div>
                 <div class="project-header">
                     <div class="project-icon">
                         <img src="xo_king.png" alt="XO King Icon">
@@ -947,8 +1123,9 @@
                 <div class="project-body">
                     <div class="project-name">XO King – Tic Tac Toe Online</div>
                     <div class="project-period">Oct 2025 – Dec 2025</div>
-                    <p class="project-desc">Cross-platform online competitive game with a full social system and a TikTok Mini Game build.</p>
-                    <ul class="project-highlights">
+                    <div class="project-company">🏢 EZTech & CDT Games Studio</div>
+                    <p class="project-desc" data-i18n="proj_xoking_desc">Cross-platform online competitive game with a full social system and a TikTok Mini Game build.</p>
+                    <ul class="project-highlights" data-i18n-html="proj_xoking_highlights">
                         <li>Online / Local / Bot modes backed by server API</li>
                         <li>Social systems: leaderboard, friends, chat, challenges</li>
                         <li>Firebase, Adjust, IAP, and ad integration</li>
@@ -966,7 +1143,9 @@
                         <span class="tech-tag">Unity Socket IO</span>
                         <span class="tech-tag">REST API</span>
                     </div>
-                    <a href="https://play.google.com/store/apps/details?id=com.cdt.tictactoe.on.game" target="_blank" class="project-link">Google Play →</a>
+                    <div class="project-links">
+                        <a href="https://play.google.com/store/apps/details?id=com.cdt.tictactoe.on.game" target="_blank" class="project-link">Google Play →</a>
+                    </div>
                 </div>
             </div>
 
@@ -982,12 +1161,12 @@
                 <div class="project-body">
                     <div class="project-name">Hole Monster: Online</div>
                     <div class="project-period">Aug 2025 – Oct 2025</div>
-                    <p class="project-desc">Xây dựng chế độ Online cho game Hole Monster gốc</p>
-                    <ul class="project-highlights">
-                        <li>Sử dụng Fishnet để xây dựng logic cho mode chơi online </li>
-                        <li>Xây dựng UI cho mode chơi online</li>
+                    <div class="project-company">🏢 EZTech & CDT Games Studio</div>
+                    <p class="project-desc" data-i18n="proj_holemonster_desc">Built a new Online mode for the original Hole Monster game.</p>
+                    <ul class="project-highlights" data-i18n-html="proj_holemonster_highlights">
+                        <li>Used Fishnet to build the online mode's networking logic</li>
+                        <li>Built the UI for the online mode</li>
                         <li>Firebase event tracking per spec + Adjust SDK</li>
-
                     </ul>
                     <div class="project-tech">
                         <span class="tech-tag">Unity</span>
@@ -998,7 +1177,9 @@
                         <span class="tech-tag">Firebase</span>
                         <span class="tech-tag">Adjust</span>
                     </div>
-                    <a href="https://play.google.com/store/apps/details?id=com.cdtg.hole.online&hl=vi" target="_blank" class="project-link">Google Play →</a>
+                    <div class="project-links">
+                        <a href="https://play.google.com/store/apps/details?id=com.cdtg.hole.online&hl=vi" target="_blank" class="project-link">Google Play →</a>
+                    </div>
                 </div>
             </div>
 
@@ -1006,14 +1187,15 @@
             <div class="project-card reveal">
                 <div class="project-video" data-video-id="I8wg23gaRsA"></div>
                 <div class="project-header">
-                    <div class="project-icon" style="background: rgba(100,200,255,0.1);">💎</div>
-                    <span class="project-badge badge-live">● LIVE</span>
+                    <div class="project-icon" style="background: rgba(100,200,255,0.1);">🧩</div>
+                    <span class="project-badge badge-dev" data-i18n="badge_dev">● IN DEVELOPMENT</span>
                 </div>
                 <div class="project-body">
                     <div class="project-name">Tile Maze</div>
                     <div class="project-period">Mar 2025 – Apr 2025</div>
-                    <p class="project-desc">Puzzle game featuring a custom level design tool and a complete UI flow from splash to leaderboard.</p>
-                    <ul class="project-highlights">
+                    <div class="project-company">🏢 VLion</div>
+                    <p class="project-desc" data-i18n="proj_tilemaze_desc">Puzzle game featuring a custom level design tool and a complete UI flow from splash to leaderboard.</p>
+                    <ul class="project-highlights" data-i18n-html="proj_tilemaze_highlights">
                         <li>Level design tool for the Level Design team</li>
                         <li>UI flow: Splash, Home, Game, Shop, Leaderboard</li>
                     </ul>
@@ -1024,18 +1206,15 @@
                         <span class="tech-tag">uGUI</span>
                         <span class="tech-tag">Addressable</span>
                     </div>
-                    <a href="https://play.google.com/store/apps/details?id=com.vw.trafficpuzzle1" target="_blank" class="project-link">Google Play →</a>
+                    <div class="project-links">
+                        <span class="project-link disabled" data-i18n="link_not_released">Not yet released</span>
+                    </div>
                 </div>
             </div>
 
             <!-- Diamond Factory -->
             <div class="project-card reveal">
-                <div class="project-video" data-video-id="yrEPKx1hb2k">
-                    <!--<div class="video-placeholder">
-                        <div class="ph-icon">▶</div>
-                        <div class="ph-text">DEMO VIDEO COMING SOON<br>add YouTube ID in the HTML</div>
-                    </div>-->
-                </div>
+                <div class="project-video" data-video-id="yrEPKx1hb2k"></div>
                 <div class="project-header">
                     <div class="project-icon" style="background: rgba(100,200,255,0.1);">💎</div>
                     <span class="project-badge badge-live">● LIVE</span>
@@ -1043,8 +1222,9 @@
                 <div class="project-body">
                     <div class="project-name">Diamond Factory</div>
                     <div class="project-period">Mar 2025 – Apr 2025</div>
-                    <p class="project-desc">Puzzle game featuring a custom level design tool and a complete UI flow from splash to leaderboard.</p>
-                    <ul class="project-highlights">
+                    <div class="project-company">🏢 VLion</div>
+                    <p class="project-desc" data-i18n="proj_diamond_desc">Puzzle game featuring a custom level design tool and a complete UI flow from splash to leaderboard.</p>
+                    <ul class="project-highlights" data-i18n-html="proj_diamond_highlights">
                         <li>Level design tool for the Level Design team</li>
                         <li>UI flow: Splash, Home, Game, Shop, Leaderboard</li>
                     </ul>
@@ -1055,18 +1235,15 @@
                         <span class="tech-tag">uGUI</span>
                         <span class="tech-tag">Addressable</span>
                     </div>
-                    <a href="https://play.google.com/store/apps/details?id=com.vw.trafficpuzzle1" target="_blank" class="project-link">Google Play →</a>
+                    <div class="project-links">
+                        <a href="https://play.google.com/store/apps/details?id=com.vw.trafficpuzzle1" target="_blank" class="project-link">Google Play →</a>
+                    </div>
                 </div>
             </div>
 
             <!-- Royal Car Customs -->
             <div class="project-card reveal">
-                <div class="project-video" data-video-id="xh_HqhFsZSU">
-                    <div class="video-placeholder">
-                        <div class="ph-icon">▶</div>
-                        <div class="ph-text">DEMO VIDEO COMING SOON<br>add YouTube ID in the HTML</div>
-                    </div>
-                </div>
+                <div class="project-video" data-video-id="xh_HqhFsZSU"></div>
                 <div class="project-header">
                     <div class="project-icon" style="background: rgba(255,183,77,0.1);">🚗</div>
                     <span class="project-badge badge-live">● LIVE</span>
@@ -1074,25 +1251,26 @@
                 <div class="project-body">
                     <div class="project-name">Royal Car Customs</div>
                     <div class="project-period">Sep 2024 – Apr 2025</div>
-                    <p class="project-desc">Casual game released across multiple countries, featuring a car customization system and event mini-games.</p>
-                    <ul class="project-highlights">
+                    <div class="project-company">🏢 VLion</div>
+                    <p class="project-desc" data-i18n="proj_royalcar_desc">Casual game released across multiple countries, featuring a car customization system and event mini-games.</p>
+                    <ul class="project-highlights" data-i18n-html="proj_royalcar_highlights">
                         <li>Event mini-games: Magic Paint & Lucky Jackpot</li>
                         <li>Car creation and customization system</li>
                         <li>Multi-language localization</li>
                     </ul>
                     <div class="project-tech">
                         <span class="tech-tag">Unity</span>
-                        <span class="tech-tag">uGUI</span>s
+                        <span class="tech-tag">uGUI</span>
                         <span class="tech-tag">DOTween</span>
                         <span class="tech-tag">Localization</span>
                         <span class="tech-tag">Addressable</span>
                     </div>
-                    <a href="https://play.google.com/store/apps/details?id=com.abi.royalcarcustom" target="_blank" class="project-link">Google Play →</a>
-                    <a href="https://apps.apple.com/us/app/royal-car-customs/id6497230571" target="_blank" class="project-link">App Store →</a>
+                    <div class="project-links">
+                        <a href="https://play.google.com/store/apps/details?id=com.abi.royalcarcustom" target="_blank" class="project-link">Google Play →</a>
+                        <a href="https://apps.apple.com/us/app/royal-car-customs/id6497230571" target="_blank" class="project-link">App Store →</a>
+                    </div>
                 </div>
             </div>
-
-
 
         </div>
     </section>
@@ -1101,16 +1279,16 @@
 
     <!-- EXPERIENCE -->
     <section id="experience">
-        <p class="section-label reveal">History</p>
-        <h2 class="section-title reveal">Work Experience</h2>
+        <p class="section-label reveal" data-i18n="exp_label">History</p>
+        <h2 class="section-title reveal" data-i18n="exp_title">Work Experience</h2>
 
         <div class="timeline">
 
             <div class="timeline-item reveal">
                 <div class="timeline-period">Jun 2025 – Present</div>
                 <div class="timeline-company">EZTech & CDT Games Studio</div>
-                <div class="timeline-role">Unity Developer</div>
-                <ul class="timeline-bullets">
+                <div class="timeline-role" data-i18n="exp_eztech_role">Unity Developer</div>
+                <ul class="timeline-bullets" data-i18n-html="exp_eztech_bullets">
                     <li>Integrated cross-platform ads: AppLovin MAX, AdMob (rewarded, interstitial, open app, banner, native)</li>
                     <li>Firebase Analytics + Adjust SDK for tracking & attribution</li>
                     <li>Successfully built a TikTok Mini Game with ad integration</li>
@@ -1121,8 +1299,8 @@
             <div class="timeline-item reveal">
                 <div class="timeline-period">Sep 2024 – May 2025</div>
                 <div class="timeline-company">VLion</div>
-                <div class="timeline-role">Unity Developer</div>
-                <ul class="timeline-bullets">
+                <div class="timeline-role" data-i18n="exp_vlion_role">Unity Developer</div>
+                <ul class="timeline-bullets" data-i18n-html="exp_vlion_bullets">
                     <li>Built and optimized gameplay systems for a mobile game</li>
                     <li>Contributed to UI/UX design and game design direction</li>
                 </ul>
@@ -1131,8 +1309,8 @@
             <div class="timeline-item reveal">
                 <div class="timeline-period">Jul 2023 – Nov 2023</div>
                 <div class="timeline-company">BlackStar Lab</div>
-                <div class="timeline-role">Intern Unity Developer</div>
-                <ul class="timeline-bullets">
+                <div class="timeline-role" data-i18n="exp_blackstar_role">Intern Unity Developer</div>
+                <ul class="timeline-bullets" data-i18n-html="exp_blackstar_bullets">
                     <li>Built UI with uGUI/TextMeshPro for gameplay screens</li>
                     <li>Integrated Firebase Analytics and AdMob into the project</li>
                 </ul>
@@ -1145,9 +1323,9 @@
 
     <!-- CONTACT -->
     <div class="contact-section" id="contact">
-        <p class="section-label reveal" style="text-align:center;">Contact</p>
-        <h2 class="section-title reveal">Let's work together</h2>
-        <p class="contact-sub reveal">Always open to new and exciting opportunities.</p>
+        <p class="section-label reveal" style="text-align:center;" data-i18n="contact_label">Contact</p>
+        <h2 class="section-title reveal" data-i18n="contact_title">Let's work together</h2>
+        <p class="contact-sub reveal" data-i18n="contact_sub">Always open to new and exciting opportunities.</p>
         <div class="contact-links reveal">
             <a href="mailto:hoanhthong2302@gmail.com" class="contact-item">
                 ✉ hoanhthong2302@gmail.com
@@ -1162,46 +1340,296 @@
     </div>
 
     <footer>
-        <p>© 2026 Do Hoanh Thong · Built with ♥ · Unity Developer</p>
+        <p data-i18n="footer_text">© 2026 Do Hoanh Thong · Built with ♥ · Unity Developer</p>
     </footer>
 
     <script>
-        // Cursor glow
+        // Cursor glow mượt hơn bằng easing nhè nhẹ
         const glow = document.getElementById('glow');
+        let mouseX = 0, mouseY = 0;
+        let glowX = 0, glowY = 0;
+
         document.addEventListener('mousemove', e => {
-            glow.style.left = e.clientX + 'px';
-            glow.style.top = e.clientY + 'px';
+            mouseX = e.clientX;
+            mouseY = e.clientY;
         });
 
-        // Scroll reveal
+        function updateGlow() {
+            // Easing formula to smooth out the glow lag effect (giống như DOTween)
+            glowX += (mouseX - glowX) * 0.1;
+            glowY += (mouseY - glowY) * 0.1;
+            glow.style.left = glowX + 'px';
+            glow.style.top = glowY + 'px';
+            requestAnimationFrame(updateGlow);
+        }
+        updateGlow();
+
+        // Scroll reveal với mượt mà hơn sử dụng cubic-bezier và delay thác nước (stagger)
         const reveals = document.querySelectorAll('.reveal');
         const observer = new IntersectionObserver(entries => {
             entries.forEach((entry, i) => {
                 if (entry.isIntersecting) {
-                    setTimeout(() => entry.target.classList.add('visible'), i * 80);
+                    setTimeout(() => entry.target.classList.add('visible'), i * 60);
                     observer.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.1 });
+        }, { threshold: 0.05 });
         reveals.forEach(el => observer.observe(el));
 
+        // Kích hoạt ngay lập tức các animation intro cho phần Hero
         document.querySelectorAll('.hero .reveal, .hero-content > *').forEach(el => {
             el.classList.add('visible');
         });
 
-        // Auto-embed YouTube videos if a data-video-id is provided
+        // Tự động nhúng YouTube video
         document.querySelectorAll('.project-video').forEach(box => {
             const normalVideoId = box.getAttribute('data-video-id');
-
             if (normalVideoId && normalVideoId.trim() !== '') {
                 box.innerHTML = `
-                <iframe src="https://www.youtube.com/embed/${normalVideoId}" 
-                        title="Gameplay demo" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen>
-                </iframe>`;
+                        <iframe src="https://www.youtube.com/embed/${normalVideoId}"
+                                title="Gameplay demo"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen>
+                        </iframe>`;
             }
         });
+
+        // ── i18n (EN / VI) ──
+        const i18n = {
+            en: {
+                nav_skills: "Skills",
+                nav_projects: "Projects",
+                nav_experience: "Experience",
+                nav_contact: "Contact",
+                hero_eyebrow: "Unity Game Developer",
+                hero_title: "// Building mobile games people love",
+                hero_desc: "Unity developer experienced in building casual mobile games from prototype to release. Specialized in monetization, analytics tracking, and performance optimization across Android & iOS.",
+                hero_cta_view: "View Projects ↓",
+                hero_cta_contact: "Get in Touch",
+                stat_games: "Games Shipped",
+                stat_years: "Years Experience",
+                skills_label: "Capabilities",
+                skills_title: "Skills & Technologies",
+                skill_lang_arch: "Language & Architecture",
+                skill_unity: "Unity Engine",
+                skill_monetization: "Monetization & Ads",
+                skill_analytics: "Analytics & Attribution",
+                skill_platform: "Platform & Build",
+                skill_tools: "Tools & Workflow",
+                projects_label: "Portfolio",
+                projects_title: "Featured Projects",
+
+                proj_dogbark_desc: "Casual mobile game with multiple bonus mini-games. The most complex project to date, featuring native Android ad integration.",
+                proj_dogbark_highlights: [
+                    "Built gameplay systems for 3 modes: Story, Rank, and Endless",
+                    "Built the full UI system",
+                    "Used Addressables to load textures, prefabs, and more",
+                    "Firebase event tracking per spec + Adjust SDK",
+                    "Localization across 10+ languages"
+                ],
+                proj_brushcat_desc: "Casual mobile game with multiple bonus mini-games. The most complex project to date, featuring native Android ad integration.",
+                proj_brushcat_highlights: [
+                    "Native Ads (AdMob) implemented at the Android Java layer",
+                    "Mini-game systems: Save the Cat, Barking Battle, ...",
+                    "Firebase event tracking per spec + Adjust SDK",
+                    "Localization across 10+ languages",
+                    "Built TikTok Mini Game with ads integration"
+                ],
+                proj_xoking_desc: "Cross-platform online competitive game with a full social system and a TikTok Mini Game build.",
+                proj_xoking_highlights: [
+                    "Online / Local / Bot modes backed by server API",
+                    "Social systems: leaderboard, friends, chat, challenges",
+                    "Firebase, Adjust, IAP, and ad integration",
+                    "TikTok Mini Game build with ads"
+                ],
+                proj_holemonster_desc: "Built a new Online mode for the original Hole Monster game.",
+                proj_holemonster_highlights: [
+                    "Used Fishnet to build the online mode's networking logic",
+                    "Built the UI for the online mode",
+                    "Firebase event tracking per spec + Adjust SDK"
+                ],
+                proj_tilemaze_desc: "Puzzle game featuring a custom level design tool and a complete UI flow from splash to leaderboard.",
+                proj_tilemaze_highlights: [
+                    "Level design tool for the Level Design team",
+                    "UI flow: Splash, Home, Game, Shop, Leaderboard"
+                ],
+                proj_diamond_desc: "Puzzle game featuring a custom level design tool and a complete UI flow from splash to leaderboard.",
+                proj_diamond_highlights: [
+                    "Level design tool for the Level Design team",
+                    "UI flow: Splash, Home, Game, Shop, Leaderboard"
+                ],
+                proj_royalcar_desc: "Casual game released across multiple countries, featuring a car customization system and event mini-games.",
+                proj_royalcar_highlights: [
+                    "Event mini-games: Magic Paint & Lucky Jackpot",
+                    "Car creation and customization system",
+                    "Multi-language localization"
+                ],
+
+                badge_dev: "● IN DEVELOPMENT",
+                link_not_released: "Not yet released",
+                exp_label: "History",
+                exp_title: "Work Experience",
+                exp_eztech_role: "Unity Developer",
+                exp_eztech_bullets: [
+                    "Integrated cross-platform ads: AppLovin MAX, AdMob (rewarded, interstitial, open app, banner, native)",
+                    "Firebase Analytics + Adjust SDK for tracking & attribution",
+                    "Successfully built a TikTok Mini Game with ad integration",
+                    "Researched and prototyped an online game using Fishnet networking"
+                ],
+                exp_vlion_role: "Unity Developer",
+                exp_vlion_bullets: [
+                    "Built and optimized gameplay systems for a mobile game",
+                    "Contributed to UI/UX design and game design direction"
+                ],
+                exp_blackstar_role: "Intern Unity Developer",
+                exp_blackstar_bullets: [
+                    "Built UI with uGUI/TextMeshPro for gameplay screens",
+                    "Integrated Firebase Analytics and AdMob into the project"
+                ],
+                contact_label: "Contact",
+                contact_title: "Let's work together",
+                contact_sub: "Always open to new and exciting opportunities.",
+                footer_text: "© 2026 Do Hoanh Thong · Built with ♥ · Unity Developer"
+            },
+            vi: {
+                nav_skills: "Kỹ năng",
+                nav_projects: "Dự án",
+                nav_experience: "Kinh nghiệm",
+                nav_contact: "Liên hệ",
+                hero_eyebrow: "Lập trình viên Unity",
+                hero_title: "// Xây dựng những game mobile được yêu thích",
+                hero_desc: "Lập trình viên Unity có kinh nghiệm phát triển game mobile casual từ giai đoạn prototype đến khi phát hành. Chuyên về monetization, theo dõi analytics và tối ưu hiệu năng trên cả Android & iOS.",
+                hero_cta_view: "Xem dự án ↓",
+                hero_cta_contact: "Liên hệ ngay",
+                stat_games: "Game đã phát hành",
+                stat_years: "Năm kinh nghiệm",
+                skills_label: "Năng lực",
+                skills_title: "Kỹ năng & Công nghệ",
+                skill_lang_arch: "Ngôn ngữ & Kiến trúc",
+                skill_unity: "Unity Engine",
+                skill_monetization: "Monetization & Quảng cáo",
+                skill_analytics: "Analytics & Attribution",
+                skill_platform: "Nền tảng & Build",
+                skill_tools: "Công cụ & Quy trình",
+                projects_label: "Portfolio",
+                projects_title: "Dự án nổi bật",
+
+                proj_dogbark_desc: "Game mobile casual với nhiều mini-game thưởng. Dự án phức tạp nhất từ trước đến nay, có tích hợp quảng cáo native trên Android.",
+                proj_dogbark_highlights: [
+                    "Xây dựng hệ thống gameplay với 3 chế độ chơi: Story, Rank và Endless",
+                    "Xây dựng toàn bộ hệ thống UI",
+                    "Sử dụng Addressables để load texture, prefab và nhiều tài nguyên khác",
+                    "Theo dõi event Firebase theo spec + tích hợp Adjust SDK",
+                    "Đa ngôn ngữ cho hơn 10 ngôn ngữ"
+                ],
+                proj_brushcat_desc: "Game mobile casual với nhiều mini-game thưởng. Dự án lớn với độ tùy biến cao, tích hợp quảng cáo native ở tầng sâu layer Android.",
+                proj_brushcat_highlights: [
+                    "Tích hợp Native Ads (AdMob) trực tiếp từ layer Java Android",
+                    "Hệ thống mini-game đa dạng: Giải cứu mèo, Trận chiến sủa, ...",
+                    "Gắn tracking sự kiện Firebase theo tài liệu kỹ thuật + Adjust SDK",
+                    "Hỗ trợ bản địa hóa trên hơn 10 ngôn ngữ khác nhau",
+                    "Xây dựng và đóng gói phiên bản TikTok Mini Game tích hợp quảng cáo"
+                ],
+                proj_xoking_desc: "Game thi đấu trực tuyến đa nền tảng kết hợp hệ thống mạng xã hội hoàn chỉnh và đóng gói phiên bản TikTok Mini Game.",
+                proj_xoking_highlights: [
+                    "Chế độ chơi Online / Local / Bot đồng bộ hoàn toàn qua Server API",
+                    "Hệ thống tính năng xã hội: Bảng xếp hạng, bạn bè, chat, thách đấu",
+                    "Tích hợp các SDK Firebase, Adjust, cổng thanh toán IAP và hệ thống Ads",
+                    "Xây dựng build TikTok Mini Game hoàn chỉnh có nhúng quảng cáo"
+                ],
+                proj_holemonster_desc: "Phát triển và triển khai thành công chế độ chơi Online hoàn toàn mới cho tựa game Hole Monster gốc.",
+                proj_holemonster_highlights: [
+                    "Sử dụng framework Fishnet để lập trình toàn bộ logic truyền tải mạng",
+                    "Thiết kế và xây dựng giao diện người dùng (UI) dành riêng cho chế độ Online",
+                    "Gắn tracking sự kiện Firebase chi tiết + tích hợp Adjust SDK"
+                ],
+                proj_tilemaze_desc: "Tựa game giải đố nổi bật với công cụ thiết kế màn chơi tùy biến và luồng UI hoàn chỉnh từ màn hình mở đầu đến bảng xếp hạng.",
+                proj_tilemaze_highlights: [
+                    "Phát triển Tool Editor thiết kế màn chơi (Level Design Tool) hỗ trợ team LD",
+                    "Hoàn thiện toàn bộ UI flow: Luồng Splash, Trang chủ, Gameplay, Cửa hàng, Leaderboard"
+                ],
+                proj_diamond_desc: "Game giải đố khối hộp sở hữu bộ công cụ thiết kế màn chơi riêng và luồng UI tối ưu trải nghiệm người dùng.",
+                proj_diamond_highlights: [
+                    "Phát triển công cụ thiết kế màn chơi tùy biến cho đội ngũ Level Design",
+                    "Xây dựng trọn vẹn luồng giao diện: Splash, Home, Game, Shop, Leaderboard"
+                ],
+                proj_royalcar_desc: "Tựa game casual phát hành trên phạm vi quốc tế, sở hữu hệ thống độ xe chuyên sâu và các mini-game sự kiện hấp dẫn.",
+                proj_royalcar_highlights: [
+                    "Phát triển các mini-game sự kiện: Magic Paint & Lucky Jackpot",
+                    "Xây dựng hệ thống chế tạo, nâng cấp và tùy biến xe hơi theo yêu cầu",
+                    "Tích hợp hệ thống đa ngôn ngữ cho thị trường quốc tế"
+                ],
+
+                badge_dev: "● ĐANG PHÁT TRIỂN",
+                link_not_released: "Chưa phát hành",
+                exp_label: "Lịch sử",
+                exp_title: "Kinh nghiệm làm việc",
+                exp_eztech_role: "Lập trình viên Unity",
+                exp_eztech_bullets: [
+                    "Tích hợp quảng cáo đa nền tảng: AppLovin MAX, AdMob (rewarded, interstitial, open app, banner, native)",
+                    "Firebase Analytics + Adjust SDK để theo dõi & đo lường attribution",
+                    "Xây dựng thành công TikTok Mini Game có tích hợp quảng cáo",
+                    "Nghiên cứu và prototype game online sử dụng Fishnet networking"
+                ],
+                exp_vlion_role: "Lập trình viên Unity",
+                exp_vlion_bullets: [
+                    "Xây dựng và tối ưu hệ thống gameplay cho game mobile",
+                    "Đóng góp vào thiết kế UI/UX và định hướng game design"
+                ],
+                exp_blackstar_role: "Thực tập sinh lập trình Unity",
+                exp_blackstar_bullets: [
+                    "Xây dựng UI bằng uGUI/TextMeshPro cho các màn hình gameplay",
+                    "Tích hợp Firebase Analytics và AdMob vào dự án"
+                ],
+                contact_label: "Liên hệ",
+                contact_title: "Cùng nhau hợp tác",
+                contact_sub: "Luôn sẵn sàng cho những cơ hội mới và thú vị.",
+                footer_text: "© 2026 Đỗ Hoành Thông · Built with ♥ · Unity Developer"
+            }
+        };
+
+        function applyLanguage(lang) {
+            const dict = i18n[lang];
+            if (!dict) return;
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (dict[key] !== undefined) {
+                    el.textContent = dict[key];
+                }
+            });
+
+            document.querySelectorAll('[data-i18n-html]').forEach(el => {
+                const key = el.getAttribute('data-i18n-html');
+                const items = dict[key];
+                if (Array.isArray(items)) {
+                    el.innerHTML = items.map(text => `<li>${text}</li>`).join('');
+                }
+            });
+
+            document.documentElement.lang = lang;
+            document.querySelectorAll('.lang-toggle button').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+            });
+
+            try {
+                localStorage.setItem('portfolio-lang', lang);
+            } catch (e) { /* ignore storage errors */ }
+        }
+
+        document.querySelectorAll('.lang-toggle button').forEach(btn => {
+            btn.addEventListener('click', () => applyLanguage(btn.getAttribute('data-lang')));
+        });
+
+        let initialLang = 'en';
+        try {
+            const saved = localStorage.getItem('portfolio-lang');
+            if (saved === 'en' || saved === 'vi') initialLang = saved;
+        } catch (e) { /* ignore storage errors */ }
+
+        if (initialLang !== 'en') {
+            applyLanguage(initialLang);
+        }
     </script>
 </body>
 </html>
