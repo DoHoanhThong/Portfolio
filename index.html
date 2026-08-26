@@ -1456,6 +1456,145 @@
             .skill-group { animation: none; }
         }
 
+        /* ── DOWNLOAD PDF BUTTON ── */
+        .pdf-download {
+            margin-bottom: 1rem;
+            border-radius: 12px;
+            padding: .85rem 1.6rem;
+            font-size: 0.9rem;
+        }
+
+        /* ── PDF EXPORT MODE (html2pdf) ── */
+        body.pdf-exporting nav,
+        body.pdf-exporting .cursor-glow,
+        body.pdf-exporting .hero-stats,
+        body.pdf-exporting .hero::before,
+        body.pdf-exporting .hero::after,
+        body.pdf-exporting .project-video,
+        body.pdf-exporting .pdf-download,
+        body.pdf-exporting #scroll-progress {
+            display: none !important;
+        }
+
+        body.pdf-exporting {
+            background: #fff !important;
+        }
+
+            body.pdf-exporting::before,
+            body.pdf-exporting::after {
+                display: none !important;
+            }
+
+            body.pdf-exporting .reveal,
+            body.pdf-exporting .hero-eyebrow,
+            body.pdf-exporting .hero-name,
+            body.pdf-exporting .hero-title,
+            body.pdf-exporting .hero-desc,
+            body.pdf-exporting .hero-cta,
+            body.pdf-exporting .project-card,
+            body.pdf-exporting .skill-group {
+                opacity: 1 !important;
+                transform: none !important;
+                animation: none !important;
+                transition: none !important;
+            }
+
+            body.pdf-exporting .hero {
+                min-height: auto;
+                padding: 2rem 0;
+            }
+
+            body.pdf-exporting section,
+            body.pdf-exporting .contact-section {
+                padding-top: 2rem;
+                padding-bottom: 2rem;
+            }
+
+            body.pdf-exporting .project-card,
+            body.pdf-exporting .skill-group,
+            body.pdf-exporting .timeline-item,
+            body.pdf-exporting .stat-card {
+                box-shadow: none !important;
+            }
+
+            body.pdf-exporting .skills-grid,
+            body.pdf-exporting .projects-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+            }
+
+        /* ── PRINT / PDF EXPORT ── */
+        @media print {
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            nav,
+            .cursor-glow,
+            .hero-stats,
+            .hero::before,
+            .hero::after,
+            .project-video,
+            .pdf-download,
+            #scroll-progress {
+                display: none !important;
+            }
+
+            body {
+                background: #fff !important;
+            }
+
+            body::before,
+            body::after {
+                display: none !important;
+            }
+
+            /* Force every entrance-animated element visible (animations don't run in print) */
+            .reveal,
+            .hero-eyebrow,
+            .hero-name,
+            .hero-title,
+            .hero-desc,
+            .hero-cta,
+            .project-card,
+            .skill-group {
+                opacity: 1 !important;
+                transform: none !important;
+                animation: none !important;
+                transition: none !important;
+            }
+
+            .hero {
+                min-height: auto;
+                padding: 2rem 0;
+            }
+
+            section,
+            .contact-section {
+                padding-top: 2rem;
+                padding-bottom: 2rem;
+            }
+
+            .project-card,
+            .skill-group,
+            .timeline-item,
+            .stat-card {
+                break-inside: avoid;
+                box-shadow: none !important;
+            }
+
+            .skills-grid,
+            .projects-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+            }
+
+            a {
+                text-decoration: none;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -1936,9 +2075,11 @@
     </div>
 
     <footer>
+        <button type="button" id="download-pdf" class="btn btn-primary pdf-download" data-i18n="footer_download">⬇ Download PDF</button>
         <p data-i18n="footer_text">© 2026 Do Hoanh Thong · Built with ♥ · Unity Developer</p>
     </footer>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script>
         // Cursor glow mượt hơn bằng easing nhè nhẹ
         const glow = document.getElementById('glow');
@@ -2091,6 +2232,7 @@
                 contact_label: "Contact",
                 contact_title: "Let's work together",
                 contact_sub: "Always open to new and exciting opportunities.",
+                footer_download: "⬇ Download PDF",
                 footer_text: "© 2026 Do Hoanh Thong · Built with ♥ · Unity Developer"
             },
             vi: {
@@ -2192,6 +2334,7 @@
                 contact_label: "Liên hệ",
                 contact_title: "Cùng nhau hợp tác",
                 contact_sub: "Luôn sẵn sàng cho những cơ hội mới và thú vị.",
+                footer_download: "⬇ Tải Portfolio (PDF)",
                 footer_text: "© 2026 Đỗ Hoành Thông · Built with ♥ · Unity Developer"
             }
         };
@@ -2272,6 +2415,46 @@
         };
         window.addEventListener('scroll', updateProgress, {passive:true});
         updateProgress();
+
+        // Nút tải PDF: dựng file PDF từ trang bằng html2pdf.js rồi tải thẳng về máy
+        const pdfBtn = document.getElementById('download-pdf');
+        pdfBtn.addEventListener('click', async () => {
+            const originalText = pdfBtn.textContent;
+            pdfBtn.disabled = true;
+            pdfBtn.textContent = '⏳ Generating PDF...';
+
+            // Bật chế độ layout dành riêng cho PDF (ẩn nav/video, hiện hết animation)
+            document.body.classList.add('pdf-exporting');
+            window.scrollTo(0, 0);
+            await new Promise(r => setTimeout(r, 100)); // chờ layout ổn định
+
+            try {
+                await html2pdf().set({
+                    margin: [8, 8, 8, 8],
+                    filename: 'DoHoanhThong_UnityDeveloper_Portfolio.pdf',
+                    image: { type: 'jpeg', quality: 0.95 },
+                    html2canvas: {
+                        scale: 2,
+                        useCORS: true,
+                        backgroundColor: '#ffffff',
+                        windowWidth: 1200,
+                        scrollY: 0
+                    },
+                    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                    pagebreak: {
+                        mode: ['css', 'legacy'],
+                        avoid: ['.project-card', '.skill-group', '.timeline-item', '.contact-item']
+                    }
+                }).from(document.body).save();
+            } catch (err) {
+                console.error('PDF export failed:', err);
+                alert('Không tạo được PDF, thử lại giúp mình nhé!');
+            }
+
+            document.body.classList.remove('pdf-exporting');
+            pdfBtn.disabled = false;
+            pdfBtn.textContent = originalText;
+        });
 
 </script>
 </body>
