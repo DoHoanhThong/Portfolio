@@ -1609,6 +1609,7 @@
             <li><a href="#projects" data-i18n="nav_projects">Projects</a></li>
             <li><a href="#experience" data-i18n="nav_experience">Experience</a></li>
             <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
+                <li><a href="index.html">🎮 Game</a></li>
             <li class="lang-toggle">
                 <button type="button" data-lang="en" class="active">EN</button>
                 <button type="button" data-lang="vi">VI</button>
@@ -1737,6 +1738,44 @@
         <h2 class="section-title reveal" data-i18n="projects_title">Featured Projects</h2>
 
         <div class="projects-grid">
+            <!-- Drama Doku -->
+            <div class="project-card reveal">
+                <div class="project-video"></div>
+                <div class="project-header">
+                    <div class="project-icon">
+                        <img src="dramadoku_icon.png" alt="Drama Doku Icon">
+                    </div>
+                    <span class="project-badge badge-live">● LIVE</span>
+                </div>
+                <div class="project-body">
+                    <div class="project-name">Drama Doku!</div>
+                    <div class="project-period">Sep 30 – Oct 20, 2026</div>
+                    <div class="project-company">🏢 EZTech &amp; CDT Games Studio</div>
+                    <p class="project-desc" data-i18n="proj_dramadoku_desc">Sudoku-style deduction game with drama stories. I built the whole project solo, from the core gameplay and case system to UI, monetization and release.</p>
+                    <ul class="project-highlights" data-i18n-html="proj_dramadoku_highlights">
+                        <li>Built the deduction engine: 18 clue types, one-per-row/column rule and verdict logic, solution checker and case solver</li>
+                        <li>Built a case generator and Case Editor tool to create hundreds of cases across 4 difficulties and 9 drama scenarios</li>
+                        <li>Built the full UI: home, case list, gameplay board with pan/zoom, Place/Pencil/Mark/Eraser tools, tutorial and result screens</li>
+                        <li>Localization in 20+ languages with a template engine for clue sentences</li>
+                        <li>Integrated ads, IAP (hint shop, season packs, membership), streaks, notifications, Firebase and Adjust</li>
+                    </ul>
+                    <div class="project-tech">
+                        <span class="tech-tag">Unity</span>
+                        <span class="tech-tag">Editor Tools</span>
+                        <span class="tech-tag">uGUI</span>
+                        <span class="tech-tag">Localization</span>
+                        <span class="tech-tag">AppLovin MAX</span>
+                        <span class="tech-tag">AdMob</span>
+                        <span class="tech-tag">IAP</span>
+                        <span class="tech-tag">Firebase</span>
+                        <span class="tech-tag">Adjust</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://play.google.com/store/apps/details?id=com.cdt.xdoku.drama" target="_blank" class="project-link">Google Play →</a>
+                    </div>
+                </div>
+            </div>
+
             <!-- Art Drop -->
             <div class="project-card reveal">
                 <div class="project-video"></div>
@@ -2162,6 +2201,14 @@
                     "Adjust SDK for attribution tracking",
                     "Addressable asset management with remote catalog support"
                 ],
+                proj_dramadoku_desc: "Sudoku-style deduction game with drama stories. I built the whole project solo, from the core gameplay and case system to UI, monetization and release.",
+                proj_dramadoku_highlights: [
+                    "Built the deduction engine: 18 clue types, one-per-row/column rule and verdict logic, solution checker and case solver",
+                    "Built a case generator and Case Editor tool to create hundreds of cases across 4 difficulties and 9 drama scenarios",
+                    "Built the full UI: home, case list, gameplay board with pan/zoom, Place/Pencil/Mark/Eraser tools, tutorial and result screens",
+                    "Localization in 20+ languages with a template engine for clue sentences",
+                    "Integrated ads, IAP (hint shop, season packs, membership), streaks, notifications, Firebase and Adjust"
+                ],
                 proj_dogbark_desc: "Casual mobile game with multiple bonus mini-games. The most complex project to date, featuring native Android ad integration.",
                 proj_dogbark_highlights: [
                     "Built gameplay systems for 3 modes: Story, Rank, and Endless",
@@ -2263,6 +2310,14 @@
                     "Tích hợp quảng cáo: rewarded, interstitial, banner (AppLovin MAX / AdMob)",
                     "Tích hợp Adjust SDK để theo dõi attribution",
                     "Quản lý tài nguyên Addressable với hỗ trợ remote catalog"
+                ],
+                proj_dramadoku_desc: "Game suy luận kiểu sudoku với các câu chuyện drama. Tự phát triển toàn bộ dự án, từ gameplay, hệ thống vụ án đến UI, monetization và phát hành.",
+                proj_dramadoku_highlights: [
+                    "Xây dựng bộ máy suy luận: 18 loại manh mối, luật mỗi hàng/cột một người, luật tìm thủ phạm, bộ chấm lời giải và bộ giải vụ án",
+                    "Viết công cụ sinh vụ án và Case Editor để tạo hàng trăm vụ án với 4 độ khó và 9 kịch bản drama",
+                    "Xây dựng toàn bộ UI: màn chính, danh sách vụ án, bàn chơi có kéo/zoom, công cụ Đặt/Bút chì/Gạch/Tẩy, hướng dẫn và màn kết quả",
+                    "Đa ngôn ngữ cho hơn 20 ngôn ngữ, câu manh mối sinh tự động theo mẫu",
+                    "Tích hợp quảng cáo, IAP (shop gợi ý, gói mùa, membership), streak, thông báo, Firebase và Adjust"
                 ],
                 proj_dogbark_desc: "Game mobile casual với nhiều mini-game thưởng. Dự án phức tạp nhất từ trước đến nay, có tích hợp quảng cáo native trên Android.",
                 proj_dogbark_highlights: [
